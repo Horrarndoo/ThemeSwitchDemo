@@ -6,10 +6,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.horrarndoo.zyw.themeswitchdemo.base.BaseActivity;
-import com.horrarndoo.zyw.themeswitchdemo.theme.ThemeChangeObserver;
+import com.horrarndoo.zyw.themeswitchdemo.base.BaseThemeChangeActivity;
 
-public class MainActivity extends BaseActivity implements ThemeChangeObserver {
+public class MainActivity extends BaseThemeChangeActivity {
     private TextView tvTheme;
     private Button btnTheme;
     private LinearLayout llRoot;
@@ -30,20 +29,9 @@ public class MainActivity extends BaseActivity implements ThemeChangeObserver {
             }
         });
     }
-
+    
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mThemeManager.unregisterObserver(this);
-    }
-
-    @Override
-    public void resetCurrentTheme() {
-        setTheme(mThemeManager.getCurrentTheme());
-    }
-
-    @Override
-    public void notifyThemeChanged() {
+    protected void refeshThemeUI() {
         tvTheme.setText(mThemeManager.isNightThemeMode() ? "夜间模式" : "白天模式");
         mHelper.setTextColorByAttr(tvTheme, android.R.attr.textColor);
         mHelper.setTextColorByAttr(btnTheme, android.R.attr.textColor);
